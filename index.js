@@ -27,9 +27,13 @@ async function updateTripsStatus() {
       return timeDifference >= 12 * 60 * 60 * 1000 && departureDate < now; // 24 hours in milliseconds
     });
 
+    const filteredTrips = tripsToUpdate.filter(trip => {
+      return trip.status == 'Active'
+    })
+
     // Step 3: Update each trip's status to "Completed"
     console.log(tripsToUpdate.length)
-    for (const trip of tripsToUpdate) {
+    for (const trip of filteredTrips) {
       const updatedTrip = {
         id: trip.id,
         departureTerminalId: trip.departureTerminal?.id || "",
